@@ -5,3 +5,6 @@ FIELD_ERROR = 2001
 
 # 整体校验，错误返回码（messagebox提示）
 SUMMARY_ERROR = 2002
+
+# 认证组件校验失败
+AUTHENTICATION_ERROR = 3001

@@ -3,7 +3,10 @@ from django.utils.deprecation import MiddlewareMixin
 
 class AuthMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
+        # 网址源
         response["Access-Control-Allow-Origin"] = "*"
+        # 请求头
         response["Access-Control-Allow-Headers"] = "*"
+        # 方法
         response["Access-Control-Allow-Methods"] = "*"
         return response

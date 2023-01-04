@@ -8,7 +8,7 @@ dot_env_path = os.path.join(BASE_DIR, ".env")
 if os.path.exists(dot_env_path):
     load_dotenv(dot_env_path)
 SECRET_KEY = os.getenv("SECRET_KEY")
-
+JWT_KEY = os.getenv("JWT_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = []
