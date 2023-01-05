@@ -1,1 +1,1 @@
-from .Login import LoginView
+from .Login import PwdLoginView, SmsLoginView
