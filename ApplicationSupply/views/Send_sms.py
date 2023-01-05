@@ -17,14 +17,15 @@ class SendSmsView(APIView):
                     {
                         "code": reponse_code.FIELD_ERROR,
                         "message": ser.errors,
-                        "status": "success",
+                        "status": "fail",
                     }
                 )
             random_code = str(random.randint(1000, 9999))
+            # print(ser.validated_data["mobile"])
+            # print(random_code)
             # 腾讯云短信接口发送短信
-            TencentSendSms.send_sms(
-                list(ser.validated_data["mobile"]), random_code, duration="5"
-            )
+            phones_list = [ser.validated_data["mobile"]]
+            TencentSendSms.send_sms(phones_list, random_code, duration="5")
             conn = get_redis_connection("default")
             conn.set(ser.validated_data["mobile"], random_code, ex=300)
             # 5.返回

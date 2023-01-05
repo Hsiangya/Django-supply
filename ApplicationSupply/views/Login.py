@@ -41,10 +41,10 @@ class SmsLoginView(APIView):
         # 1.接收请求数据 request.data
         # 2. 校验手机格式+手机号存在
         ser = SmsLoginSerializer(data=request.data)
+        print(ser.data)
         if not ser.is_valid():
             return Response(
                 {
-                    "status": "fail",
                     "code": reponse_code.FIELD_ERROR,
                     "message": ser.errors,
                 }
@@ -55,7 +55,6 @@ class SmsLoginView(APIView):
         token = create_token({"user_id": instance.id, "name": instance.name})
         return Response(
             {
-                "status": "success",
                 "code": reponse_code.success,
                 "message": "登录成功",
                 "data": {"token": token, "name": instance.name},

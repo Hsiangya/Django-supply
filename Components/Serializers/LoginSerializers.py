@@ -17,16 +17,16 @@ class PwdLoginSerializer(serializers.Serializer):
 
 class SmsLoginSerializer(serializers.Serializer):
     mobile = serializers.CharField(
-        required=True, validators=[RegexValidator(r"\d{11}", message="格式错误")]
+        required=True, validators=[RegexValidator(r"\d{11}", message="手机号格式错误")]
     )
     code = serializers.CharField(
-        required=True, validators=[RegexValidator(r"\d{4}", message="格式错误")]
+        required=True, validators=[RegexValidator(r"\d{4}", message="验证码格式错误")]
     )
 
     def validate_mobile(self, value):
         is_exists = Company.objects.filter(mobile=value).exists()
         if not is_exists:
-            raise exceptions.ValidationError("手机未注册")
+            raise exceptions.ValidationError("该手机号未注册")
         return value
 
     def validate_code(self, value):
