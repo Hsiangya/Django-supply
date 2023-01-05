@@ -41,7 +41,6 @@ class SmsLoginView(APIView):
         # 1.接收请求数据 request.data
         # 2. 校验手机格式+手机号存在
         ser = SmsLoginSerializer(data=request.data)
-        print(ser.data)
         if not ser.is_valid():
             return Response(
                 {
