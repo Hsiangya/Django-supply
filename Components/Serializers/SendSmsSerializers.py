@@ -1,7 +1,7 @@
 from django.core.validators import RegexValidator
 from rest_framework import exceptions, serializers
 
-from Database.models import Company
+from Application.Database.models import Company
 
 
 class SendSmsSerializer(serializers.Serializer):

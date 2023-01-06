@@ -5,9 +5,9 @@ from rest_framework import exceptions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from Application.Database.models import Company
 from Components import TencentSendSms, reponse_code
 from Components.Serializers import RegisterSerializer, RegisterSmsSerializer
-from Database.models import Company
 
 
 class RegisterView(APIView):

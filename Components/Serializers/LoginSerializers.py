@@ -2,8 +2,8 @@ from django.core.validators import RegexValidator
 from django_redis import get_redis_connection
 from rest_framework import exceptions, serializers
 
+from Application.Database.models import Company
 from Components.encrypt import md5
-from Database.models import Company
 
 
 class PwdLoginSerializer(serializers.Serializer):

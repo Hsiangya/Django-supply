@@ -2,10 +2,10 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from Application.Database.models import Company
 from Components import reponse_code
 from Components.JWT_Token import check_token, create_token
 from Components.Serializers import PwdLoginSerializer, SmsLoginSerializer
-from Database.models import Company
 
 
 class PwdLoginView(APIView):

@@ -15,9 +15,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "django.contrib.staticfiles",
-    "ApplicationSupply.apps.ApplicationsupplyConfig",
+    "Application.Supply.apps.ApplicationConfig",
+    "Application.Database.apps.DatabaseConfig",
     "rest_framework",
-    "Database.apps.DatabaseConfig",
 ]
 
 MIDDLEWARE = [
