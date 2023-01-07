@@ -1,14 +1,17 @@
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
+from Application.Database.models import Company
 from Components.Authentication import JWTAuthentication
+from Components.Mixins import RetrieveModelMixin, UpdateModelMixin
 from Components.reponse_code import success
 
 
-class BasicView(APIView):
+class BasicView(RetrieveModelMixin, UpdateModelMixin, GenericAPIView):
     authentication_classes = [
         JWTAuthentication,
-    ]
+    ]  # 认证信息
+    queryset = Company.objects.all()
 
     def get(self, request):
         print(request.data)
