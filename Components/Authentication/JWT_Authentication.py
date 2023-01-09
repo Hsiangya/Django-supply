@@ -8,9 +8,11 @@ from Components.reponse_code import AUTHENTICATION_ERROR
 class JWTAuthentication(BaseAuthentication):
     def authenticate(self, request):
         """预检不需要认证"""
+        # print("before option")
         if request.method == "OPTIONS":
             return
         # 1. 读取请求头中的token
+        # print("AFTER option")
         authentication = request.META.get("HTTP_AUTHORIZATION", "")
 
         # 2. token校验

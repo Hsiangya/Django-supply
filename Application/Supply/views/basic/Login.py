@@ -31,7 +31,11 @@ class PwdLoginView(APIView):
                 "status": "success",
                 "code": reponse_code.success,
                 "message": "登录成功",
-                "data": {"token": token, "name": instance.name},  # 返回name方便前端显示企业名称
+                "data": {
+                    "token": token,
+                    "name": instance.name,
+                    "id": instance.id,
+                },  # 返回name方便前端显示企业名称
             }
         )
 
@@ -56,6 +60,6 @@ class SmsLoginView(APIView):
             {
                 "code": reponse_code.success,
                 "message": "登录成功",
-                "data": {"token": token, "name": instance.name},
+                "data": {"token": token, "name": instance.name, "id": instance.id},
             }
         )

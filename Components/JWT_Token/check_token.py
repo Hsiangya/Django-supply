@@ -15,7 +15,7 @@ def parse_payload(token):
 
         # 从token中获取payload【校验合法性】
         verified_payload = jwt.decode(
-            token, settings.WT_KEY.encode("utf-8"), algorithms=["HS256"]
+            token, settings.JWT_KEY.encode("utf-8"), algorithms=["HS256"]
         )
         return True, verified_payload
     except exceptions.ExpiredSignatureError:

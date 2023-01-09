@@ -9,4 +9,5 @@ class AuthMiddleware(MiddlewareMixin):
         response["Access-Control-Allow-Headers"] = "*"
         # 任意请求方法，解决预检
         response["Access-Control-Allow-Methods"] = "*"
+        # print("Middleware")
         return response
