@@ -11,6 +11,7 @@ from Components.Serializers import SendSmsSerializer
 class SendSmsView(APIView):
     def post(self, request):
         try:
+            print(request.data)
             ser = SendSmsSerializer(data=request.data)
             if not ser.is_valid():
                 return Response(
@@ -22,10 +23,10 @@ class SendSmsView(APIView):
                 )
             random_code = str(random.randint(1000, 9999))
             # print(ser.validated_data["mobile"])
-            # print(random_code)
+            print(random_code)
             # 腾讯云短信接口发送短信
             phones_list = [ser.validated_data["mobile"]]
-            TencentSendSms.send_sms(phones_list, random_code, duration="5")
+            # TencentSendSms.send_sms(phones_list, random_code, duration="5")
             conn = get_redis_connection("default")
             conn.set(ser.validated_data["mobile"], random_code, ex=300)
             # 5.返回

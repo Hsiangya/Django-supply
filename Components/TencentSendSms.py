@@ -34,7 +34,6 @@ def send_sms(phones: list, code: str, duration: str = "5"):
         req.SignName = os.getenv("SIGN_NAME")
         req.ExtendCode = ""
         req.SenderId = ""
-        # req.PhoneNumberSet = [f"+86{phone}" for phone in phones]
         req.PhoneNumberSet = [f"+86{phone}" for phone in phones]
         req.TemplateId = os.getenv("TEMPLATE_ID")
 

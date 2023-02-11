@@ -10,11 +10,14 @@ class UpdateModelMixin:
         try:
             partial = kwargs.pop("partial", False)
             instance = self.get_object()
+            print("1111")
             serializer = self.get_serializer(
                 instance, data=request.data, partial=partial
             )
+            print("11111")
             # serializer.is_valid(raise_exception=True)
             # 改写返回值
+            print(instance)
             if not serializer.is_valid():
                 return Response(
                     {
@@ -23,7 +26,9 @@ class UpdateModelMixin:
                         "detail": serializer.errors,
                     }
                 )
+            print("111")
             self.perform_update(serializer)
+            print("222")
             return Response(
                 {
                     "code": reponse_code.success,

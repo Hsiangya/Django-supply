@@ -97,3 +97,9 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {"UNAUTHENTICATED_USER": None, "UNAUTHENTICATED_TOKEN": None}
+
+if __name__ == "__main__":
+    print(database_name)
+    print(database_user)
+    print(database_password)
+    print(database_host)

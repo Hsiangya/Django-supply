@@ -6,7 +6,7 @@ from Application.Database.models import Company
 
 class SendSmsSerializer(serializers.Serializer):
     mobile = serializers.CharField(
-        required=True, validators=[RegexValidator(r"\d{11}", message="格式错误")]
+        required=True, validators=[RegexValidator(r"\d{11}", message="手机号格式错误")]
     )
 
     def validate_mobile(self, value):

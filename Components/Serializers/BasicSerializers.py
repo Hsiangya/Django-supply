@@ -48,8 +48,6 @@ class MobileModelSerializer(serializers.ModelSerializer):
         # 当前登录用的手机号是不是
         request = self.context["request"]
         user_id = request.user["user_id"]
-        # user_dict = {"id": 1, "name": "xxx"}
-        # # {'user_id': 1, 'name': '大和实业', 'exp': 1670212872}
         exists = Company.objects.filter(id=user_id, mobile=val).exists()
         if not exists:
             raise exceptions.ValidationError("原手机号错误")

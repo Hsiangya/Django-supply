@@ -7,7 +7,7 @@ from jwt import exceptions
 # SALT = 'iv%x6xo7l7_u9bf_u!9#g#m*)*=ej@bek5)(@u3kh*72+unjv='
 
 
-def create_token(payload, timeout=20):
+def create_token(payload, timeout=1):
     # 构造header，即第一段信息
     headers = {"typ": "jwt", "alg": "HS256"}
 
@@ -17,7 +17,7 @@ def create_token(payload, timeout=20):
     #     'username': 'hsiangya',  # 自定义用户名
     #     'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=5)  # 超时时间
     # }
-    payload["exp"] = datetime.datetime.utcnow() + datetime.timedelta(seconds=timeout)
+    payload["exp"] = datetime.datetime.utcnow() + datetime.timedelta(days=timeout)
 
     # 生成JWT Token
     result = jwt.encode(
