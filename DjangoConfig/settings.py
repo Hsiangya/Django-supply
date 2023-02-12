@@ -96,6 +96,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# 配置匿名用户
 REST_FRAMEWORK = {"UNAUTHENTICATED_USER": None, "UNAUTHENTICATED_TOKEN": None}
 
 # 媒体文件目录
@@ -104,3 +105,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 # 文件上传的路径
 UPLOAD_PATH = "upload/"
+
+# 百度文字识别API
+
+
+ocr_id = os.getenv("BAIDU_API_ID")
+ocr_api_key = os.getenv("BAIDU_API_KEY")
+ocr_secret_key = os.getenv("BAIDU_SECRET_KEY")
