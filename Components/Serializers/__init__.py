@@ -1,3 +1,4 @@
+from .AuthSerializers import AuthModelSerializer
 from .BasicSerializers import (
     BasicModelSerializer,
     MobileModelSerializer,

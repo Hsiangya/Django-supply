@@ -98,8 +98,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {"UNAUTHENTICATED_USER": None, "UNAUTHENTICATED_TOKEN": None}
 
-if __name__ == "__main__":
-    print(database_name)
-    print(database_user)
-    print(database_password)
-    print(database_host)
+# 媒体文件目录
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# 媒体文件url
+MEDIA_URL = "/media/"
+# 文件上传的路径
+UPLOAD_PATH = "upload/"
