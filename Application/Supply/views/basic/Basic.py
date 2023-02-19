@@ -5,11 +5,8 @@ from Application.Database.models import Company
 from Components.Authentication import JWTAuthentication
 from Components.Filter import BasicIDFilter
 from Components.Mixins import RetrieveModelMixin, UpdateModelMixin
-from Components.Serializers import (
-    BasicModelSerializer,
-    MobileModelSerializer,
-    NameModelSerializer,
-)
+from Components.Serializers import (BasicModelSerializer,
+                                    MobileModelSerializer, NameModelSerializer)
 
 
 class BasicView(RetrieveModelMixin, UpdateModelMixin, GenericViewSet):

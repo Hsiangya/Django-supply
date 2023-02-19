@@ -109,6 +109,7 @@ UPLOAD_PATH = "upload/"
 # 百度文字识别API
 
 
-ocr_id = os.getenv("BAIDU_API_ID")
-ocr_api_key = os.getenv("BAIDU_API_KEY")
-ocr_secret_key = os.getenv("BAIDU_SECRET_KEY")
+IdCard_key = os.getenv("IDCARD_KEY")
+IdCard_secret = os.getenv("IDCARD_SECRET")
+license_key = os.getenv("BUSINESS_LICENSE_API_KYE")
+license_secret = os.getenv("BUSINESS_LICENSE_SECRET")
