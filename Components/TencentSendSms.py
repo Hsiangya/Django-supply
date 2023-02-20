@@ -1,11 +1,14 @@
 import os
 
 from tencentcloud.common import credential
-from tencentcloud.common.exception.tencent_cloud_sdk_exception import \
-    TencentCloudSDKException
+from tencentcloud.common.exception.tencent_cloud_sdk_exception import (
+    TencentCloudSDKException,
+)
+
 # 导入可选配置类
 from tencentcloud.common.profile.client_profile import ClientProfile
 from tencentcloud.common.profile.http_profile import HttpProfile
+
 # 导入对应产品模块的client models。
 from tencentcloud.sms.v20210111 import models, sms_client
 

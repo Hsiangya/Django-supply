@@ -9,7 +9,9 @@ from rest_framework.viewsets import ModelViewSet
 
 from Application.Database.models import Company
 from Components import reponse_code
+from Components.BaiduAip.OCR_images import id_card
 from Components.Serializers import AuthModelSerializer
+from DjangoConfig.settings import IdCard_key, IdCard_secret
 
 
 def get_upload_filename(file_name):
@@ -20,7 +22,6 @@ def get_upload_filename(file_name):
     file_path = os.path.join(upload_path, file_name)
     # 返回文件名，get_available_name会校验文件名以及重名后修改文件名
     return default_storage.get_available_name(file_path)
-
 
 
 class AuthView(ModelViewSet):
@@ -45,14 +46,52 @@ class AuthView(ModelViewSet):
         abs_url = request.build_absolute_uri(local_url)
 
         img_type = request.data.get("type")
+        """身份证正面识别"""
         if img_type == "front":
             """读取文件数据的光标回到起始点"""
+            param = {"id_card_side": "front"}
             upload_object.seek(0)
-            baidu_ai(upload_object.read())
+            id_info: dict = id_card(upload_object.read(), param=param)
+            if id_info.get("error"):
+                return Response(
+                    {
+                        "code": reponse_code.OCR_ERROR,
+                        "message": "识别失败，请手动输入或重新上传",
+                        "detail": id_info.get("detail"),
+                    }
+                )
+            context = {
+                "code": reponse_code.success,
+                "type": "front",
+                "data": {
+                    "url": local_url,
+                    "abs_url": abs_url,
+                    "leader": id_info.get("姓名"),
+                    "leader_identity": id_info.get("公民身份号码"),
+                },
+            }
 
-        context = {
-            "code": reponse_code.success,
-            "data": {"url": local_url, "abs_url": abs_url},
-        }
-        # 2.路径返回（第三方组件） {status:1}  {status:0 }
+        if img_type == "licence_path":
+            upload_object.seek(0)
+            request_url = "https://aip.baidubce.com/rest/2.0/ocr/v1/business_license"
+            license_info: dict = id_card(upload_object.read(), new_url=request_url)
+            # 2.路径返回（第三方组件） {status:1}  {status:0 }
+            if license_info.get("error"):
+                return Response(
+                    {
+                        "code": reponse_code.OCR_ERROR,
+                        "message": "识别失败，请手动输入或重新上传",
+                        "detail": license_info["detail"],
+                    }
+                )
+            context = {
+                "code": reponse_code.success,
+                "type": "licence_path",
+                "data": {
+                    "url": local_url,
+                    "abs_url": abs_url,
+                    "title": license_info.get("单位名称"),
+                    "unique_id": license_info.get("社会信用代码"),
+                },
+            }
         return Response(context)
