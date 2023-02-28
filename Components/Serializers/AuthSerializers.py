@@ -12,17 +12,17 @@ class AuthModelSerializer(serializers.ModelSerializer):
     auth_type_class = serializers.SerializerMethodField(read_only=True)
 
     """编辑页面的预览完整地址"""
-    licence_path_url = serializers.SerializerMethodField()
-    leader_identity_front_url = serializers.SerializerMethodField()
-    leader_identity_back_url = serializers.SerializerMethodField()
+    licence_path_url = serializers.SerializerMethodField(read_only=True)
+    leader_identity_front_url = serializers.SerializerMethodField(read_only=True)
+    leader_identity_back_url = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = CompanyAuth
         # fields = "__all__"
         exclude = ["company"]
-        # extra_kwargs = {
-        #     'remark': {"read_only": True}
-        # }
+        extra_kwargs = {
+            "remark": {"read_only": True},
+        }
 
     def get_auth_type_class(self, obj):
         """通过auth_type匹配返回认证样式的信息"""

@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 from Application.Database.models import Company
-from Components.Authentication import JWTAuthentication
+from Components.Authentication import DenyAuthentication, JWTAuthentication
 from Components.Filter import BasicIDFilter
 from Components.Mixins import RetrieveModelMixin, UpdateModelMixin
 from Components.Serializers import (
@@ -15,6 +15,7 @@ from Components.Serializers import (
 class BasicView(RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     authentication_classes = [
         JWTAuthentication,
+        DenyAuthentication,
     ]  # 认证信息
     filter_backends = [BasicIDFilter]
     queryset = Company.objects.all()

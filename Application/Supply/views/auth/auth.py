@@ -9,8 +9,13 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 from Application.Database.models import CompanyAuth
 from Components import reponse_code
+from Components.Authentication import (
+    DenyAuthentication,
+    JWTAuthentication,
+    JwtParamAuthentication,
+)
 from Components.BaiduAip.OCR_images import id_card
-from Components.Mixins import RetrieveModelMixin
+from Components.Mixins import CreateUpdateModelMixin, RetrieveModelMixin
 from Components.Serializers import AuthModelSerializer
 from DjangoConfig.settings import IdCard_key, IdCard_secret
 
@@ -25,7 +30,12 @@ def get_upload_filename(file_name):
     return default_storage.get_available_name(file_path)
 
 
-class AuthView(GenericViewSet, RetrieveModelMixin):
+class AuthView(GenericViewSet, RetrieveModelMixin, CreateUpdateModelMixin):
+    authentication_classes = [
+        JWTAuthentication,
+        JwtParamAuthentication,
+        DenyAuthentication,
+    ]
     queryset = CompanyAuth.objects.all()
     serializer_class = AuthModelSerializer
 
@@ -96,3 +106,19 @@ class AuthView(GenericViewSet, RetrieveModelMixin):
                 },
             }
         return Response(context)
+
+    def get_instance(self):
+        # 已登录的用户信息  request.user = {'user_id': instance.id, 'name': instance.name}
+        user_id = self.request.user["user_id"]
+        return CompanyAuth.objects.filter(company_id=user_id).first()
+
+    def perform_create(self, serializer):
+        user_id = self.request.user["user_id"]
+        instance = serializer.save(company_id=user_id, remark="")
+        instance.company.auth_type = 2
+        instance.company.save()
+
+    def perform_update(self, serializer):
+        instance = serializer.save(remark="")
+        instance.company.auth_type = 2
+        instance.company.save()

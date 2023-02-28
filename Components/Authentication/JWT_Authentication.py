@@ -20,15 +20,16 @@ class JWTAuthentication(BaseAuthentication):
 
         # 3.校验失败，返回失败信息
         if not status:
-            raise exceptions.AuthenticationFailed(
-                {
-                    "status": "fail",
-                    "message": info_or_error,
-                    "code": AUTHENTICATION_ERROR,
-                }
-            )
+            # raise exceptions.AuthenticationFailed(
+            #     {
+            #         "status": "fail",
+            #         "message": info_or_error,
+            #         "code": AUTHENTICATION_ERROR,
+            #     }
+            # )
+            return
 
-        # 4. 校验成功，返回request.user  request.auth
+            # 4. 校验成功，返回request.user  request.auth
         return info_or_error, authentication
 
 
