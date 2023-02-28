@@ -5,11 +5,12 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
-from Application.Database.models import Company
+from Application.Database.models import CompanyAuth
 from Components import reponse_code
 from Components.BaiduAip.OCR_images import id_card
+from Components.Mixins import RetrieveModelMixin
 from Components.Serializers import AuthModelSerializer
 from DjangoConfig.settings import IdCard_key, IdCard_secret
 
@@ -24,8 +25,8 @@ def get_upload_filename(file_name):
     return default_storage.get_available_name(file_path)
 
 
-class AuthView(ModelViewSet):
-    queryset = Company.objects.all()
+class AuthView(GenericViewSet, RetrieveModelMixin):
+    queryset = CompanyAuth.objects.all()
     serializer_class = AuthModelSerializer
 
     @action(detail=False, methods=["post"], url_path="upload")
